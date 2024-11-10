@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <style>
+        body {
+            font-family: 'Helvetica', Arial, sans-serif;
+            background: linear-gradient(to right, #b2ec6c, #0e130d);
+            background-color: #e8e8e8;
+            color: #000000;
+            line-height: 2.0;
+            margin: 0;
+            padding: 0;
+        }
+        .back-btn {
+            font-size: 18px;
+            color: #090909;
+            background-color: #faf8f8;
+            text-decoration: none;
+            border: 2px solid #030303;
+            padding: 9px 6px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            margin-top: 30px;
+            margin-left: 30px;
+            display: block;
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .back-btn .arrow {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+        .container {
+            width: 60%;
+            height: 10%;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin-top: 8px;
+            position: relative;
+        }
+        
+          h1 {
+            color: #010101;
+            font-size: 2.5em;
+            text-align: center;
+            padding-left: 50px; 
+            /* Adjust to make space for the arrow */
+        }
+        h3 {
+            color: #0c0c0c;
+            border-bottom: 2px solid #b2ec6c;
+            padding-bottom: 5px;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #080808;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+        button:hover {
+            background-color: #b2ec6c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Back Button with Arrow -->
+    <button class="back-btn" onclick="window.location.href='index.html'">
+        <i class="arrow">&#8592;</i>Back
+    </button>
+
+    <div class="container">
+        <h1>Resume Builder</h1>
+        <form id="resumeForm">
+            <!-- Personal Information -->
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <!-- Education -->
+            <h3>Education</h3>
+            <label for="degree">Degree</label>
+            <input type="text" id="degree" name="degree" required>
+
+            <label for="university">University</label>
+            <input type="text" id="university" name="university" required>
+
+            <label for="cgpa">CGPA</label>
+            <input type="number" id="cgpa" name="cgpa" step="0.01" required>
+
+            <!-- Skills -->
+            <h3>Skills</h3>
+            <textarea id="skills" name="skills" rows="4" placeholder="Enter your skills here" required></textarea>
+
+            <!-- Work Experience -->
+            <h3>Work Experience</h3>
+            <label for="work_experience">Experience</label>
+            <textarea id="work_experience" name="work_experience" rows="4" placeholder="Describe your work experience" required></textarea>
+
+            <!-- Projects -->
+            <h3>Projects</h3>
+            <label for="projects">Projects</label>
+            <textarea id="projects" name="projects" rows="4" placeholder="Describe your projects" required></textarea>
+
+            <!-- Submit Button -->
+            <button type="submit">Generate Resume</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        document.getElementById('resumeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const degree = document.getElementById('degree').value;
+            const university = document.getElementById('university').value;
+            const cgpa = document.getElementById('cgpa').value;
+            const skills = document.getElementById('skills').value;
+            const workExperience = document.getElementById('work_experience').value;
+            const projects = document.getElementById('projects').value;
+
+            // Set custom colors for the PDF
+            doc.setTextColor(56, 142, 60); // Green for headers
+            doc.setFontSize(20);
+            doc.text("Resume", 105, 10, null, null, "center");
+
+            // Personal Information Section
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("Personal Information", 10, 30);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Name: ${name}`, 10, 40);
+            doc.text(`Email: ${email}`, 10, 50);
+            doc.text(`Phone: ${phone}`, 10, 60);
+
+            // Education Section
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(56, 142, 60);
+            doc.text("Education", 10, 75);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Degree: ${degree}`, 10, 85);
+            doc.text(`University: ${university}`, 10, 95);
+            doc.text(`CGPA: ${cgpa}`, 10, 105);
+
+            // Skills Section
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(56, 142, 60);
+            doc.text("Skills", 10, 120);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0, 0, 0);
+            doc.text(skills, 10, 130);
+
+            // Work Experience Section
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(56, 142, 60);
+            doc.text("Work Experience", 10, 145);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0, 0, 0);
+            doc.text(workExperience, 10, 155);
+
+            // Projects Section
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(56, 142, 60);
+            doc.text("Projects", 10, 170);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0, 0, 0);
+            doc.text(projects, 10, 180);
+
+            doc.save('resume.pdf');
+        });
+    </script>
+</body>
+</html>

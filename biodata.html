@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biodata Builder</title>
+    <style>
+        body {
+            font-family: 'Helvetica', Arial, sans-serif;
+            background: linear-gradient(to right, #b2ec6c, #0e130d);
+            background-color: #e8e8e8;
+            color: #000000;
+            line-height: 2.0;
+        }
+        .container {
+            width: 60%;
+            margin: 40px auto;
+            margin-bottom: auto;
+            padding: 40px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #040404;
+            font-size: 2.5em;
+            text-align: center;
+        }
+        h3 {
+            color: #050505;
+            border-bottom: 2px solid #b2ec6c;
+            padding-bottom: 5px;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #070707;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+        button:hover {
+            background-color: #b2ec6c;
+        }
+
+        /* Style for back button */
+        .back-button {
+            font-size: 18px;
+            color: #090909;
+            background-color: #faf8f8;
+            text-decoration: none;
+            border: 2px solid #030303;
+            padding: 9px 6px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            margin-top: 30px;
+            margin-left: 30px;
+            display: block;
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #b2ec6c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="back-button" onclick="window.location.href='index.html'">
+        <i class="arrow">&#8592;</i>&nbsp;Back
+    </button>
+
+    <div class="container">
+        <h1>Biodata Builder</h1>
+        <form id="biodataForm">
+            <!-- Personal Information -->
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="3" placeholder="Enter your address" required></textarea>
+
+            <!-- Family Information -->
+            <h3>Family Information</h3>
+            <label for="father_name">Father's Name</label>
+            <input type="text" id="father_name" name="father_name" required>
+
+            <label for="mother_name">Mother's Name</label>
+            <input type="text" id="mother_name" name="mother_name" required>
+
+            <!-- Submit Button -->
+            <button type="submit">Generate Biodata</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        document.getElementById('biodataForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const name = document.getElementById('name').value;
+            const dob = document.getElementById('dob').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const fatherName = document.getElementById('father_name').value;
+            const motherName = document.getElementById('mother_name').value;
+
+            // Set custom colors for the PDF
+            doc.setTextColor(56, 142, 60); // Green for headers
+            doc.setFontSize(20);
+            doc.text("Biodata", 105, 10, null, null, "center");
+
+            // Personal Information Section
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("Personal Information", 10, 30);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Name: ${name}`, 10, 40);
+            doc.text(`Date of Birth: ${dob}`, 10, 50);
+            doc.text(`Email: ${email}`, 10, 60);
+            doc.text(`Address: ${address}`, 10, 70);
+
+            // Family Information Section
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(56, 142, 60);
+            doc.text("Family Information", 10, 85);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Father's Name: ${fatherName}`, 10, 95);
+            doc.text(`Mother's Name: ${motherName}`, 10, 105);
+
+            doc.save('biodata.pdf');
+        });
+    </script>
+</body>
+</html>

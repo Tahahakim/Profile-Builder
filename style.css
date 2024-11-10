@@ -1,0 +1,165 @@
+/* Reset some basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set the background to a gradient and use a more stylish font */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #b2ec6c, #0e130d); /* Light blue gradient */
+    color: #333;
+    line-height: 2.0;
+}
+
+/* Center and style the resume container with shadows and border radius */
+.resume-container {
+    width: 80%;
+    margin: 40px auto;
+    background: #f7f7f7;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* 3D Shadow effect */
+    transition: transform 0.3s ease-in-out;
+}
+
+.resume-container:hover {
+    transform: translateY(-5px); /* Slight lift on hover for a 3D effect */
+}
+
+/* Style header with bigger text and color contrast */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 48px;
+    color: #1b1a1a;
+}
+
+header p {
+    font-size: 18px;
+    color: #0e0d0d;
+    margin-top: 8px;
+}
+
+nav {
+    margin-top: 20px;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: #0056b3;
+    border-bottom: 2px solid #0056b3; /* Underline effect on hover */
+}
+
+/* Sections with some padding and headings */
+section {
+    margin-bottom: 30px;
+    padding: 15px;
+    background: #b2ec6c;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #1c1c1c;
+}
+
+/* Styling the list inside the experience section */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 15px;
+}
+
+li strong {
+    color: #333;
+    font-size: 18px;
+}
+
+li p {
+    color: #0f0f0f;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* Style for the education section */
+.education p {
+    font-size: 18px;
+    color: #444;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+    color: #0c0c0c;
+}
+
+/* Button style for navigation links */
+nav a {
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #060606;
+    color: #f0f0f0;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #b2ec6c;
+    border-bottom: none; /* Removing the bottom border for buttons */
+    color: #fff;
+}
+
+/* Box shadows for the 3D look and some transition effects */
+.resume-container, section {
+    transition: all 0.3s ease;
+}
+
+.resume-container:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Making sure the layout looks good on smaller screens */
+@media (max-width: 768px) {
+    .resume-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 36px;
+    }
+
+    nav a {
+        padding: 6px 10px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    li p {
+        font-size: 14px;
+    }
+}
